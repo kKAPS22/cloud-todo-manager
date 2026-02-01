@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Todo Dashboard</title>
+    <link rel="stylesheet" href="{% static 'todo-dashboard.css' %}">
+</head>
+<body>
+
+<div class="navbar">
+    <h2>My Todos</h2>
+    <a href="/logout" class="logout">Logout</a>
+</div>
+
+<div class="container">
+
+    <div class="add-box">
+        <form method="POST"  action="{%url 'dashboard'%}">
+            {% csrf_token %}
+            <input type="text" name="title" placeholder="Todo title" required>
+            <input type="text" name="description" placeholder="Description">
+            <input type="datetime-local" name="due_at">
+            <button>Add Todo</button>
+        </form>
+    </div>
+
+    <div class="todo-list">
+
+        {% for todo in todos %}
+        <div class="todo-card {% if todo.is_completed %}done{% endif %}">{% comment %} Agar Todo Complete hai ->Extra class done laga do  {% endcomment %}
+            <h3>{{ todo.title }}</h3>
+            <p>{{ todo.description }}</p>
+            <small>Due: {{ todo.due_at }}</small>
+
+            <div class="actions">
+                <a href="/complete/{{todo.srno}}">✔</a>
+                <a href="/delete/{{todo.srno}}" class="delete">✖</a>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,89 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body{
+    height:100vh;
+    background: radial-gradient(circle at top left, #dbeafe, #f8fafc);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.login-wrapper{
+    width:100%;
+    display:flex;
+    justify-content:center;
+}
+
+.login-card{
+    width:380px;
+    background:white;
+    padding:45px;
+    border-radius:14px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.15);
+    text-align:center;
+}
+
+.login-card h2{
+    font-size:26px;
+    margin-bottom:25px;
+    color:#0f172a;
+}
+
+.login-card input{
+    width:100%;
+    height:48px;
+    margin-bottom:14px;
+    padding:0 16px;
+    border:1.5px solid #cbd5e1;
+    border-radius:10px;
+    font-size:15px;
+    background:#f8fafc;
+}
+
+.login-card input:focus{
+    outline:none;
+    border-color:#2563eb;
+    box-shadow:0 0 0 3px rgba(37,99,235,0.15);
+    background:white;
+}
+
+/* Remember section */
+.remember{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:15px 0 25px;
+    font-size:14px;
+    color:#334155;
+}
+
+/* Custom checkbox */
+.remember input{
+    width:18px;
+    height:18px;
+    accent-color:#2563eb;
+}
+
+/* Button */
+.btn{
+    width:100%;
+    height:48px;
+    background: linear-gradient(90deg,#2563eb,#1d4ed8);
+    border:none;
+    border-radius:12px;
+    color:white;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 25px rgba(37,99,235,0.4);
+}
