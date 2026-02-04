@@ -1,13 +1,41 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.files.storage import default_storage
+import uuid
+import os
 
-'''A Foreign Key is a field in one table that refers to the Primary Key of
-another table to create a relationship between them.'''
+
+def audio_path(instance, filename):
+    ext = filename.split('.')[-1]
+    return os.path.join("audio", f"{uuid.uuid4().hex}.{ext}")
+
+
+def video_path(instance, filename):
+    ext = filename.split('.')[-1]
+    return os.path.join("video", f"{uuid.uuid4().hex}.{ext}")
+
+
 class Todo(models.Model):
-    srno=models.AutoField(primary_key=True,auto_created=True)#Primary_Key->Unique Key hai ,Auto_Created=>Django Khud Generate Karega
-    title=models.CharField(max_length=25)
-    description=models.TextField()
-    due_at=models.DateTimeField(null=True,blank=True)
-    user=models.ForeignKey(User,on_delete=models.CASCADE)#agar User Delete Toh Kal Ko uske Saare Todo Bhi dlete 
-    is_completed=models.BooleanField(default=False)
-    
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=200)
+    description = models.TextField(blank=True)
+    due_date = models.DateTimeField()
+
+    audio = models.FileField(
+        storage=default_storage,
+        upload_to=audio_path,
+        blank=True,
+        null=True
+    )
+
+    video = models.FileField(
+        storage=default_storage,
+        upload_to=video_path,
+        blank=True,
+        null=True
+    )
+
+    is_done = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.title

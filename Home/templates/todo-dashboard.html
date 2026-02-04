@@ -3,44 +3,94 @@
 <html>
 <head>
     <title>Todo Dashboard</title>
-    <link rel="stylesheet" href="{% static 'todo-dashboard.css' %}">
+<link rel="stylesheet" href="{% static 'css/todo-dashboard.css' %}?v=2">
 </head>
 <body>
 
 <div class="navbar">
     <h2>My Todos</h2>
-    <a href="/logout" class="logout">Logout</a>
+<form method="post" action="{% url 'logout' %}" style="display:inline;">
+    {% csrf_token %}
+    <button type="submit" class="logout">Logout</button>
+</form>
+
 </div>
 
 <div class="container">
 
+    <!-- ADD TODO FORM -->
     <div class="add-box">
-        <form method="POST"  action="{%url 'dashboard'%}">
+        <form method="POST" action="{% url 'dashboard' %}" enctype="multipart/form-data">
             {% csrf_token %}
-            <input type="text" name="title" placeholder="Todo title" required>
-            <input type="text" name="description" placeholder="Description">
-            <input type="datetime-local" name="due_at">
-            <button>Add Todo</button>
+
+            <!-- LINE 1 -->
+            <div class="form-row">
+                <input type="text" name="title" placeholder="Todo title" required>
+                <input type="text" name="description" placeholder="Description">
+                <input type="datetime-local" name="due_date" required>
+
+                <!-- AUDIO -->
+                <button type="button" class="icon-btn" id="audioBtn" onclick="toggleAudio()">🎤</button>
+                <audio id="preview" class="mini-player" controls></audio>
+
+                <!-- VIDEO -->
+                <button type="button" class="icon-btn" id="videoBtn" onclick="toggleVideo()">📹</button>
+                <video id="vpreview" class="mini-video"></video>
+            </div>
+
+            <!-- LINE 2 -->
+            <div class="submit-row">
+                <button class="add-btn">Add Todo</button>
+            </div>
+
+            <!-- hidden file inputs -->
+            <input type="file" name="audio" hidden>
+            <input type="file" name="video" hidden>
         </form>
     </div>
 
+    <!-- TODO LIST -->
     <div class="todo-list">
 
         {% for todo in todos %}
-        <div class="todo-card {% if todo.is_completed %}done{% endif %}">{% comment %} Agar Todo Complete hai ->Extra class done laga do  {% endcomment %}
+        <div class="todo-card {% if todo.is_done %}done{% endif %}">
             <h3>{{ todo.title }}</h3>
             <p>{{ todo.description }}</p>
-            <small>Due: {{ todo.due_at }}</small>
+
+            <div class="media-row">
+                {% if todo.audio %}
+                    <audio controls src="{{ todo.audio.url }}"></audio>
+                {% endif %}
+                {% if todo.video %}
+                    <video class="mini-video" controls src="{{ todo.video.url }}"></video>
+                {% endif %}
+            </div>
+
+            <small>Due: {{ todo.due_date }}</small>
 
             <div class="actions">
-                <a href="/complete/{{todo.srno}}">✔</a>
-                <a href="/delete/{{todo.srno}}" class="delete">✖</a>
+                <a href="{% url 'done' todo.id %}">✔</a>
+                <a href="#" onclick="openReschedule({{todo.id}})" class="delete">✖</a>
             </div>
         </div>
+        {% empty %}
+        <p>No todos yet.</p>
         {% endfor %}
 
     </div>
 </div>
+
+<script>
+function openReschedule(id){
+    let date = prompt("Enter new date & time (YYYY-MM-DD HH:MM)");
+    if(date){
+        window.location.href = `/reschedule/${id}/?d=${date}`;
+    }
+}
+</script>
+
+<!-- CONNECT JS -->
+<script src="{% static 'js/recorder.js' %}"></script>
 
 </body>
 </html>

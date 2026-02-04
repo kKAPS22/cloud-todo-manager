@@ -1,0 +1,92 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI','Netflix Sans',sans-serif;
+}
+
+body{
+    height:100vh;
+    background:radial-gradient(circle at top,#0f0f0f,#000 70%);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:#e5e5e5;
+}
+
+.wrapper{
+    width:100%;
+    display:flex;
+    justify-content:center;
+}
+
+.card{
+    width:380px;
+    background:#111;
+    padding:40px;
+    border-radius:14px;
+    box-shadow:0 20px 60px rgba(0,0,0,.7);
+    text-align:center;
+    border:1px solid #1f1f1f;
+}
+
+.card h2{
+    font-size:28px;
+    color:#e50914;
+    margin-bottom:6px;
+    font-weight:700;
+}
+
+.sub{
+    color:#aaa;
+    margin-bottom:25px;
+    font-size:14px;
+}
+
+/* Fields */
+.field{margin-bottom:16px}
+
+.field input{
+    width:100%;
+    height:48px;
+    padding:0 16px;
+    border:1px solid #222;
+    border-radius:10px;
+    font-size:15px;
+    background:#0c0c0c;
+    color:white;
+}
+.field input::placeholder{color:#777}
+
+.field input:focus{
+    outline:none;
+    border-color:#e50914;
+    background:#0a0a0a;
+}
+
+/* Button */
+.btn{
+    width:100%;
+    height:48px;
+    background:#e50914;
+    border:none;
+    border-radius:10px;
+    color:white;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+}
+.btn:hover{background:#ff1a25}
+
+/* Bottom */
+.bottom{
+    margin-top:18px;
+    color:#aaa;
+    font-size:14px;
+}
+.bottom a{
+    color:#e50914;
+    text-decoration:none;
+    font-weight:600;
+}
+.bottom a:hover{text-decoration:underline}
