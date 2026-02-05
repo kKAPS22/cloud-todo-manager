@@ -29,7 +29,13 @@ SECRET_KEY = 'django-insecure-xsn_^%w&1grgaa%$b72v(3%hk27ea)r-lf!wcvaiy=))-f32yt
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["13.201.9.19"]
+ALLOWED_HOSTS = [
+    "cloudtodo-krishna.duckdns.org",
+    "3.110.131.207",
+    "localhost",
+    "127.0.0.1"
+]
+
 
 
 
